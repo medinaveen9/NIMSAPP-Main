@@ -64,7 +64,7 @@ Ensure you have the following installed:
     ![Home Page](src/assets/Home.png)
 
   - First Section : Basic Information
-    ![Basic Information](src/assets/Basic Information.png)
+    ![Basic Information](src/assets/Basic_Information.png)
 
   - Postgresql Screenshots:
     ![Postgresql Nims](src/assets/Postgresql_Nims.png)
