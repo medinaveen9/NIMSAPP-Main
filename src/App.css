@@ -1,0 +1,258 @@
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+.home-containerr {
+  text-align: center; /* Center the text */
+  padding: 50px;
+
+  background-size: auto; /* Optional: Adjust image size */
+
+  /* Add some padding around the content */
+}
+
+/* App.css */
+
+.home-container {
+  text-align: center; /* Center the text */
+  background-image: url("nizam.png");
+  background-size: auto; /* Optional: Adjust image size */
+  background-repeat: no-repeat;
+  /* Add some padding around the content */
+}
+
+.home-container h1 {
+  font-size: 2em; /* Increase font size */
+  color: #007bff; /* Ebackxample color (blue) */
+  margin-bottom: 20px; /* Add space below the heading */
+}
+
+.home-container h2 {
+  display: flex;
+  font-size: 1.2em; /* Adjust font size */
+  color: #333;
+  text-align: right;
+  /* Dark gray color */
+}
+
+.formm-row {
+  display: flex;
+  font-size: 1.25rem;
+  align-items: center;
+  gap: 40px;
+  color: #011627;
+  /* Space between text and radio buttons */
+}
+
+.radio-group {
+  display: flex;
+  gap: 15px; /* Space between Direct and Indirect options */
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px; /* Space between inputs */
+}
+.form-row .right {
+  flex: 2; /* Increase width of left input */
+}
+.form-group {
+  flex: 1; /* Ensures equal width */
+  min-width: 200px; /* Prevents inputs from shrinking too much */
+}
+
+.custom-input,
+.custom-title {
+  width: 100%; /* Make inputs fill their container */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.form-container {
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 150px; /* Increases bottom padding */
+  background: #f9f9f9;
+  border-radius: 8px;
+  min-height: 500px; /* Ensures enough height */
+}
+
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  color: antiquewhite;
+}
+
+.custom-tex {
+  color: #011627;
+  text-align: center;
+}
+.custom-text {
+  color: #011627;
+  font-size: 1.25rem; /* Equivalent to text-xl */
+  font-weight: bold; /* Equivalent to font-bold */
+  margin-bottom: 1rem; /* Equivalent to mb-4 */
+}
+
+.custom {
+  color: #011627;
+}
+.h1 {
+  color: black;
+  font-size: 2.25rem;
+}
+
+.h2 {
+  color: #011627;
+  font-size: 2rem;
+  text-decoration: underline;
+  text-align: center;
+}
+.h {
+  color: black;
+  font-size: 1.39rem;
+}
+.custom-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.custom-input:focus {
+  box-shadow: 0 0 0 2px #3b82f6; /* Equivalent to focus:ring-2 focus:ring-blue-500 */
+}
+.name {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.name:focus {
+  box-shadow: 0 0 0 2px #3b82f6; /* Equivalent to focus:ring-2 focus:ring-blue-500 */
+}
+
+.custom-title {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.custtom-title:focus {
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+.custom-button {
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px 0;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; /* Equivalent to transition */
+}
+
+.custom-button:hover {
+  background-color: #2563eb; /* Equivalent to hover:bg-blue-600 */
+}
+
+header {
+  padding: 40px;
+  background: #011627;
+  height: 10px;
+}
+
+.sidenav {
+  width: 240px;
+  background: #011627;
+  position: absolute;
+  height: 105vh;
+  padding: 0 30px;
+  left: -100%;
+  transition: all 0.3s;
+}
+
+.sidenav {
+  left: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+ul li {
+  list-style-type: none;
+  margin: 10px 0;
+}
+
+ul li a {
+  color: #eaecef;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+ul li a:hover,
+ul li a.active {
+  background: #0e6580;
+}
+
+header svg {
+  font-size: 40px;
+}
+
+.main {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #eaecef;
+}
+
+/* .footer {
+  width: 100%;
+  padding: 15px;
+  background: #011627;
+  color: #eaecef;
+  text-align: center;
+  font-size: 14px;
+  position: relative;
+  bottom: 0;
+} */
+
+.section-footer {
+  text-align: center;
+  background-color: #0e2350;
+  padding: 55px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.section-footer p {
+  font-size: 14px;
+  color: #555;
+}
+
+.section-footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.section-footer a:hover {
+  text-decoration: underline;
+}

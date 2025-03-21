@@ -1,0 +1,324 @@
+section 1 CREATE TYPE review_requested_type AS ENUM ('Expedited Review', 'Full Committee Review');
+
+CREATE TABLE
+  ADMINISTRATIVE_DETAILS (
+    id SERIAL PRIMARY KEY,
+    Name_of_Research_principal VARCHAR(255),
+    Department VARCHAR(255),
+    Title VARCHAR(255),
+    review_requested review_requested_type NOT NULL,
+    Protocol_number INT,
+    Version_number INT date DATE
+  );
+
+CREATE TABLE
+  FUNDING_BUDGET_AND_DETAILS (
+    Total_Estimated_budget INT,
+    funding_source VARCHAR(255) NOT NULL
+  );
+
+SECTION 3 CREATE TYPE external_laboratory_type AS ENUM ('Yes', 'No');
+
+CREATE TABLE
+  overview_research (
+    id SERIAL PRIMARY KEY,
+    summary TEXT,
+    type_of_study VARCHAR(255) NOT NULL,
+    file_name VARCHAR(255),
+    external_laboratory external_laboratory_type NOT NULL,
+    specify TEXT
+  );
+
+SECTION 4 CREATE TYPE payment_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE advertisement_type AS ENUM ('Yes', 'No');
+
+CREATE TABLE
+  participant_related_information (
+    id SERIAL PRIMARY KEY,
+    type_of_participants VARCHAR(255),
+    specifiy TEXT,
+    justification TEXT,
+    additional_safeguards TEXT,
+    reimbursement_details TEXT,
+    advertisement_details TEXT,
+    payment_type payment_type NOT NULL,
+    advertisement_type advertisement_type NOT NULL
+  );
+
+SECTION 5 CREATE TYPE benefits_from_the_study AS ENUM ('Direct', 'Indirect');
+
+CREATE TYPE anticipated_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TABLE
+  benefits_and_risk (
+    id SERIAL PRIMARY KEY,
+    reimbursement_details TEXT,
+    management_strategy TEXT,
+    anticipated_type anticipated_type NOT NULL,
+    participant_benefits benefits_from_the_study NOT NULL,
+    society_benefits benefits_from_the_study NOT NULL,
+    improvement_benefits benefits_from_the_study NOT NULL
+  );
+
+SECTION 6 CREATE TYPE specify_type AS ENUM ('By Questionaire', 'Feedback', 'Others');
+
+CREATE TYPE seeking_waiver_of_consent_type AS ENUM ('Yes', 'No');
+
+CREATE TYPE languages_type AS ENUM ('Telugu', 'Hindi', 'Urdu', 'Anyotherspecify');
+
+CREATE TABLE
+  informed_consent (
+    id SERIAL PRIMARY KEY,
+    seeking_waiver_of_consent_type seeking_waiver_of_consent_type BOOLEAN NOT NULL,
+    languages languages_type NOT NULL,
+    version_number INT,
+    date DATE,
+    certificates BOOLEAN NOT NULL,
+    subject BOOLEAN NOT NULL,
+    specify specify_type NOT NULL,
+    selectedelements BOOLEAN NOT NULL,
+    statement_study_involves_research BOOLEAN NOT NULL DEFAULT FALSE,
+    statement_consent_voluntary BOOLEAN NOT NULL DEFAULT FALSE,
+    expected_risks_benefits BOOLEAN NOT NULL DEFAULT FALSE,
+    alternative_procedures_available BOOLEAN NOT NULL DEFAULT FALSE,
+    contact_info_PI_EC BOOLEAN NOT NULL DEFAULT FALSE,
+    financial_compensation_SAE BOOLEAN NOT NULL DEFAULT FALSE,
+    right_to_withdraw BOOLEAN NOT NULL DEFAULT FALSE,
+    expected_duration BOOLEAN NOT NULL DEFAULT FALSE,
+    maintenance_confidentiality BOOLEAN NOT NULL DEFAULT FALSE,
+    description_procedures BOOLEAN NOT NULL DEFAULT FALSE
+  );
+
+SECTION 7 CREATE TYPE waiver_consent_type AS ENUM ('Yes', 'No');
+
+CREATE TYPE compensation_research_of_type AS ENUM ('Yes', 'No');
+
+CREATE TABLE
+  payment_compensation (
+    id SERIAL PRIMARY KEY,
+    waiver_consent_type waiver_consent_type NOT NULL,
+    specify TEXT,
+    compensation_research_of_type compensation_research_of_type NOT NULL,
+    specific TEXT
+  );
+
+SECTION 8 CREATE TYPE document_access_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE drugs_access_type AS ENUM ('Yes', 'No', 'NA');
+
+-
+CREATE TABLE
+  storage_and_confidentiality (
+    id SERIAL PRIMARY KEY,
+    control_details TEXT,
+    access_details TEXT,
+    drugs drugs_access_type NOT NULL,
+    document document_access_type NOT NULL
+  );
+
+SECTION 9 CREATE TYPE support_type AS ENUM ('Yes', 'No');
+
+CREATE TABLE
+  additional_information (
+    id SERIAL PRIMARY KEY,
+    support_type support_type NOT NULL,
+    additional TEXT
+  );
+
+SECTION 10
+CREATE TABLE
+  DECLARATION (
+    id SERIAL PRIMARY KEY,
+    Information_provided BOOLEAN NOT NULL DEFAULT FALSE,
+    investigators_approved BOOLEAN NOT NULL DEFAULT FALSE,
+    ethical_guidelines BOOLEAN NOT NULL DEFAULT FALSE,
+    polices_guidelines BOOLEAN NOT NULL DEFAULT FALSE,
+    protocol_amendments BOOLEAN NOT NULL DEFAULT FALSE,
+    maintain_records BOOLEAN NOT NULL DEFAULT FALSE,
+    privacy_of_participants BOOLEAN NOT NULL DEFAULT FALSE,
+    name_of_pi_research VARCHAR(255),
+    file_name_1 VARCHAR(255),
+    date DATE,
+    name_of_co_pi_guide VARCHAR(255),
+    file_name_2 VARCHAR(255),
+    date DATE,
+    name_of_co_investigator_1 VARCHAR(255),
+    file_name_3 VARCHAR(255),
+    date DATE,
+    name_of_co_investigator_2 VARCHAR(255),
+    file_name_4 VARCHAR(255),
+    date DATE
+  );
+
+CREATE TABLE
+  DECLARATION (
+    id SERIAL PRIMARY KEY,
+    selected_elements BOOLEAN NOT NULL,
+    information_provided BOOLEAN NOT NULL DEFAULT FALSE,
+    investigators_approved BOOLEAN NOT NULL DEFAULT FALSE,
+    ethical_guidelines BOOLEAN NOT NULL DEFAULT FALSE,
+    policies_guidelines BOOLEAN NOT NULL DEFAULT FALSE,
+    protocol_amendments BOOLEAN NOT NULL DEFAULT FALSE,
+    maintain_records BOOLEAN NOT NULL DEFAULT FALSE,
+    privacy_of_participants BOOLEAN NOT NULL DEFAULT FALSE,
+    name_of_pi_research VARCHAR(255),
+    file_name_1 VARCHAR(255),
+    date_pi DATE, -- Unique column name
+    name_of_co_pi_guide VARCHAR(255),
+    file_name_2 VARCHAR(255),
+    date_co_pi DATE, -- Unique column name
+    name_of_co_investigator_1 VARCHAR(255),
+    file_name_3 VARCHAR(255),
+    date_co_inv_1 DATE, -- Unique column name
+    name_of_co_investigator_2 VARCHAR(255),
+    file_name_4 VARCHAR(255),
+    date_co_inv_2 DATE -- Unique column name
+  );
+
+CREATE TYPE document_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE investigator_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clinic_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE investigator_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clearance_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE partners_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE protocol_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE translate_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE minors_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE proforma_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE advertise_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE insurance_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TABLE
+  adminstrative_requirements (
+    id SERIAL PRIMARY KEY,
+    1. documents document_type NOT NULL,
+    enclosure1 INT,
+    remarks1 VARCHAR(255),
+    2. investigator investigator_type NOT NULL,
+,
+    enclosure2 INT,
+    remarks2 VARCHAR(255),
+    3.clinic clinic_type NOT NULL,
+    enclosure3 INT,
+    remarks3 VARCHAR(255),
+    4.clearance clearance_type NOT NULL,
+    enclosure4 INT,
+    remarks4 VARCHAR(255),
+    5.partners partners_type NOT NULL,
+    enclosure5 INT,
+    remarks5 VARCHAR(255),
+    6.protocol protocol_type NOT NULL,
+    enclosure6 INT,
+    remarks6 VARCHAR(255),
+    7.translate translate_type NOT NULL,
+    enclosure7 INT,
+    remarks7 VARCHAR(255),
+    8. minors minors_type NOT NULL,
+    enclosure8 INT,
+    remarks8 VARCHAR(255),
+    10.proforma proforma_type NOT NULL,
+    enclosure10 INT,
+    remarks10 VARCHAR(255),
+    11.advertise advertise_type NOT NULL,
+    enclosure11 INT,
+    remarks11 VARCHAR(255),
+    12.insurance insurance_type NOT NULL,
+    enclosure12 INT,
+    remarks12 VARCHAR(255)
+  );
+
+-- Create ENUM types
+CREATE TYPE document_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE investigator_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clinic_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clearance_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE partners_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE protocol_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE translate_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE minors_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE proforma_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE advertise_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE insurance_type AS ENUM ('Yes', 'No', 'NA');
+
+-- Create Table
+CREATE TABLE -- Create ENUM types
+  CREATE TYPE document_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE investigator_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clinic_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE clearance_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE partners_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE protocol_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE translate_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE minors_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE proforma_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE advertise_type AS ENUM ('Yes', 'No', 'NA');
+
+CREATE TYPE insurance_type AS ENUM ('Yes', 'No', 'NA');
+
+(
+  id SERIAL PRIMARY KEY,
+  documents document_type NOT NULL,
+  enclosure1 INT,
+  remarks1 VARCHAR(255),
+  investigator investigator_type NOT NULL,
+  enclosure2 INT,
+  remarks2 VARCHAR(255),
+  clinic clinic_type NOT NULL,
+  enclosure3 INT,
+  remarks3 VARCHAR(255),
+  clearance clearance_type NOT NULL,
+  enclosure4 INT,
+  remarks4 VARCHAR(255),
+  partners partners_type NOT NULL,
+  enclosure5 INT,
+  remarks5 VARCHAR(255),
+  protocol protocol_type NOT NULL,
+  enclosure6 INT,
+  remarks6 VARCHAR(255),
+  translate translate_type NOT NULL,
+  enclosure7 INT,
+  remarks7 VARCHAR(255),
+  minors minors_type NOT NULL,
+  enclosure8 INT,
+  remarks8 VARCHAR(255),
+  proforma proforma_type NOT NULL,
+  enclosure10 INT,
+  remarks9 VARCHAR(255),
+  advertise advertise_type NOT NULL,
+  enclosure11 INT,
+  remarks10 VARCHAR(255),
+  insurance insurance_type NOT NULL,
+  enclosure12 INT,
+  remarks11 VARCHAR(255)
+);
