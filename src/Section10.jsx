@@ -3,25 +3,26 @@ import "./App.css";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const Section10 = () => {
+
+const Section10 = (adminId) => {
   const [name_of_pi_research, setNameOfPiResearch] = useState("");
-  const [file_name_1, setFileName1] = useState("");
+  const [image1, setImage1] = useState("null");
   const [date_pi, setDatePi] = useState(new Date().toISOString().split("T")[0]);
   const [selectedElements, setSelectedElements] = useState([]);
   const [name_of_co_pi_guide, setNameOfCoPiGuide] = useState("");
-  const [file_name_2, setFileName2] = useState("");
+  const [image2, setImage2] = useState("null");
   const [date_co_pi, setDateCoPi] = useState(
     new Date().toISOString().split("T")[0]
   );
 
   const [name_of_co_investigator_1, setNameOfCoInvestigator1] = useState("");
-  const [file_name_3, setFileName3] = useState("");
+  const [image3, setImage3] = useState("null");
   const [date_co_inv_1, setDateCoInv1] = useState(
     new Date().toISOString().split("T")[0]
   );
 
   const [name_of_co_investigator_2, setNameOfCoInvestigator2] = useState("");
-  const [file_name_4, setFileName4] = useState("");
+  const [image4, setImage4] = useState("null");
   const [date_co_inv_2, setDateCoInv2] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -52,28 +53,50 @@ const Section10 = () => {
 
   const Submit = async (e) => {
     e.preventDefault();
-    try {
+  
+
+
       const userResponse = await axios.post(
         "http://localhost:5001/declaration",
         {
           selectedElements: selectedElements,
           name_of_pi_research,
-          file_name_1,
+                                                                                                                                                                                          
           date_pi,
           name_of_co_pi_guide,
-          file_name_2,
+        
           date_co_pi,
           name_of_co_investigator_1,
-          file_name_3,
+       
           date_co_inv_1,
           name_of_co_investigator_2,
-          file_name_4,
+      
           date_co_inv_2,
+          administrativeDetailId: adminId,
         }
       );
       const id = userResponse.data.id;
       console.log("User created:", userResponse.data);
-      navigate("/");
+
+      
+      const formData = new FormData();
+    formData.append("image1", image1);
+    formData.append("image2", image2);
+    formData.append("image3", image3);
+    formData.append("image4", image4);
+    try {
+
+      const response = await axios.post("http://localhost:3001/declaration_upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log("declarationmodelUpload successful:", response.data);
+   
+    
+
+     
+
+
+      navigate("/Section11");
     } catch (error) {
       console.error(
         "Error:",
@@ -128,9 +151,10 @@ const Section10 = () => {
                 <label>
                   <input
                     type="file"
-                    name="file"
-                    value={file_name_1}
-                    onChange={(e) => setFileName1(e.target.value)}
+                   
+                    name="images"
+                    onChange={(e) => setImage1(e.target.files[0])}
+               
                     className="custom-title"
                     required
                   />
@@ -175,8 +199,11 @@ const Section10 = () => {
                 <label>
                   <input
                     type="file"
-                    value={file_name_2}
-                    onChange={(e) => setFileName2(e.target.value)}
+                
+                   
+                    name="images"
+                    onChange={(e) => setImage2(e.target.files[0])}
+               
                     className="custom-title"
                     required
                   />
@@ -222,8 +249,11 @@ const Section10 = () => {
                 <label>
                   <input
                     type="file"
-                    value={file_name_3}
-                    onChange={(e) => setFileName3(e.target.value)}
+                  
+                   
+                    name="images"
+                    onChange={(e) => setImage3(e.target.files[0])}
+               
                     className="custom-title"
                     required
                   />
@@ -269,8 +299,11 @@ const Section10 = () => {
                 <label>
                   <input
                     type="file"
-                    value={file_name_4}
-                    onChange={(e) => setFileName4(e.target.value)}
+                 
+                   
+                    name="images"
+                    onChange={(e) => setImage4(e.target.files[0])}
+               
                     className="custom-title"
                     required
                   />

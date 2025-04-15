@@ -42,6 +42,16 @@ function Navbar({ show }) {
         </li>
         <li>
           <Link to="/section11">Administartive Requirements</Link>
+
+        </li>
+
+        <li>
+          <Link to="/section13">Application for Expedited Review </Link>
+          
+        </li>
+        <li>
+          <Link to="/section14">Application Form for Requesting Waiver of Consent</Link>
+          
         </li>
       </ul>
     </nav>

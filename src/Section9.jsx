@@ -1,25 +1,144 @@
-import { useState } from "react";
+// import { useState } from "react";
 
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+
+// const Section9 = () => {
+//   const [support_type, setSupportType] = useState("");
+//   const [additional, setAdditional] = useState("");
+//   const navigate = useNavigate();
+//   const Submit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const userResponse = await axios.post(
+//         "http://localhost:5001/additional_information",
+//         {
+//           support_type,
+//           additional,
+//         }
+//       );
+//       const id = userResponse.data.id;
+//       console.log("User created:", userResponse.data);
+//       navigate("/");
+//     } catch (error) {
+//       console.error(
+//         "Error:",
+//         error.response ? error.response.data : error.message
+//       );
+//     }
+//   };
+
+//   return (
+//     <div className="form-container">
+//       <form onSubmit={Submit}>
+//         <h5 className="h2">SECTION D: OTHER ISSUES </h5>
+//         <h4 className="h1">10.ADDITIONAL INFORMATION </h4>
+//         <div className="h">
+//           <h3 className="h">
+//             (a)Do you have any additional information to add in support of the
+//             application, which is not included elsewhere in the form? If yes,
+//             provide the details.{" "}
+//           </h3>
+//           <div className="radio-group">
+//             <label>
+//               <input
+//                 type="radio"
+//                 name="additional"
+//                 value="Yes"
+//                 checked={support_type === "Yes"}
+//                 onChange={(e) => setSupportType(e.target.value)}
+//               />{" "}
+//               Yes
+//             </label>
+//             <label>
+//               <input
+//                 type="radio"
+//                 name="additional"
+//                 value="No"
+//                 checked={support_type === "No"}
+//                 onChange={(e) => setSupportType(e.target.value)}
+//               />{" "}
+//               No
+//             </label>
+//           </div>
+//         </div>
+
+//         {support_type === "Yes" && (
+//           <div className="h">
+//             <h3>specify:</h3>
+//             <input
+//               type="text"
+//               name="additionalInformation"
+//               placeholder="Enter details"
+//               checked={additional === "Yes"}
+//               onChange={(e) => setAdditional(e.target.value)}
+//               className="custom-input"
+//               required
+//             />
+//             <br />
+//           </div>
+//         )}
+//         <button type="submit" className="custom-button">
+//           Submit
+//         </button>
+//       </form>
+//     </div>
+//   );
+// };
+// export default Section9;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Section9 = () => {
+const Section9 = (adminId) => {
   const [support_type, setSupportType] = useState("");
   const [additional, setAdditional] = useState("");
+  const [preview, setPreview] = useState(false); // Preview mode toggle
+
   const navigate = useNavigate();
-  const Submit = async (e) => {
+
+  const handlePreview = (e) => {
     e.preventDefault();
+    setPreview(true);
+  };
+
+  const handleEdit = () => {
+    setPreview(false);
+  };
+
+  const handleSubmit = async () => {
     try {
       const userResponse = await axios.post(
         "http://localhost:5001/additional_information",
         {
           support_type,
           additional,
+          administrativeDetailId: adminId,
         }
       );
-      const id = userResponse.data.id;
       console.log("User created:", userResponse.data);
-      navigate("/");
+      navigate("/Section10");
     } catch (error) {
       console.error(
         "Error:",
@@ -28,16 +147,36 @@ const Section9 = () => {
     }
   };
 
+  if (preview) {
+    return (
+      <div className="h">
+        <h5 className="h2">SECTION D: OTHER ISSUES </h5>
+      
+        <p><strong>Do you have any additional information to add?</strong> {support_type}</p>
+        {support_type === "Yes" && (
+          <p><strong>Details:</strong> {additional}</p>
+        )}
+
+        <button className="custom-button" onClick={handleSubmit}>
+          Submit
+        </button>
+        <button className="custom-button" onClick={handleEdit}>
+          Edit
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="form-container">
-      <form onSubmit={Submit}>
+      <form onSubmit={handlePreview}>
         <h5 className="h2">SECTION D: OTHER ISSUES </h5>
-        <h4 className="h1">10.ADDITIONAL INFORMATION </h4>
+        <h1 className="h">10. ADDITIONAL INFORMATION</h1>
         <div className="h">
           <h3 className="h">
-            (a)Do you have any additional information to add in support of the
+            (a) Do you have any additional information to add in support of the
             application, which is not included elsewhere in the form? If yes,
-            provide the details.{" "}
+            provide the details.
           </h3>
           <div className="radio-group">
             <label>
@@ -65,24 +204,24 @@ const Section9 = () => {
 
         {support_type === "Yes" && (
           <div className="h">
-            <h3>specify:</h3>
+            <h3>Specify:</h3>
             <input
               type="text"
               name="additionalInformation"
               placeholder="Enter details"
-              checked={additional === "Yes"}
+              value={additional}
               onChange={(e) => setAdditional(e.target.value)}
               className="custom-input"
               required
             />
-            <br />
           </div>
         )}
         <button type="submit" className="custom-button">
-          Submit
+          Preview
         </button>
       </form>
     </div>
   );
 };
+
 export default Section9;

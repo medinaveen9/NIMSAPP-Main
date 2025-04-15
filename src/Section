@@ -8,19 +8,35 @@ CREATE TABLE
     Title VARCHAR(255),
     review_requested review_requested_type NOT NULL,
     Protocol_number INT,
-    Version_number INT date DATE
+    Version_number INT 
+    date DATE
+        
   );
+section 3 
+CREATE TABLE investigatorss (
+    id INTEGER,
+    name VARCHAR(255),
+    designation VARCHAR(255),
+    qualification VARCHAR(255),
+    department VARCHAR(255),
+    investigator_type VARCHAR(255),
+    institution VARCHAR(255),
+    address VARCHAR(255)
+);
+
 
 CREATE TABLE
-  FUNDING_BUDGET_AND_DETAILS (
+  FUNDING_BUDGETT_AND_DETAILS (
+       ids SERIAL PRIMARY KEY,
     Total_Estimated_budget INT,
     funding_source VARCHAR(255) NOT NULL
+    
   );
 
 SECTION 3 CREATE TYPE external_laboratory_type AS ENUM ('Yes', 'No');
 
 CREATE TABLE
-  overview_research (
+  overvieww_research (
     id SERIAL PRIMARY KEY,
     summary TEXT,
     type_of_study VARCHAR(255) NOT NULL,
@@ -61,23 +77,30 @@ CREATE TABLE
     improvement_benefits benefits_from_the_study NOT NULL
   );
 
-SECTION 6 CREATE TYPE specify_type AS ENUM ('By Questionaire', 'Feedback', 'Others');
+SECTION 6 
 
 CREATE TYPE seeking_waiver_of_consent_type AS ENUM ('Yes', 'No');
 
 CREATE TYPE languages_type AS ENUM ('Telugu', 'Hindi', 'Urdu', 'Anyotherspecify');
 
 CREATE TABLE
-  informed_consent (
+  informedd_consent (
     id SERIAL PRIMARY KEY,
-    seeking_waiver_of_consent_type seeking_waiver_of_consent_type BOOLEAN NOT NULL,
+    seeking_waiver_of_consent_type seeking_waiver_of_consent_type  NOT NULL,
     languages languages_type NOT NULL,
     version_number INT,
     date DATE,
+    version_1 INT,
+    date_1 DATE,
+    version_2 INT,
+    date_2 DATE,
+    version_3 INT,
+    date_3 DATE,
+    specify TEXT,
     certificates BOOLEAN NOT NULL,
     subject BOOLEAN NOT NULL,
-    specify specify_type NOT NULL,
-    selectedelements BOOLEAN NOT NULL,
+   
+    selected_elements TEXT[] NOT NULL,
     statement_study_involves_research BOOLEAN NOT NULL DEFAULT FALSE,
     statement_consent_voluntary BOOLEAN NOT NULL DEFAULT FALSE,
     expected_risks_benefits BOOLEAN NOT NULL DEFAULT FALSE,
@@ -103,18 +126,28 @@ CREATE TABLE
     specific TEXT
   );
 
-SECTION 8 CREATE TYPE document_access_type AS ENUM ('Yes', 'No', 'NA');
+SECTION 8 
+CREATE TYPE sample_access_type AS ENUM ('Yes', 'No', 'NA');
+CREATE TYPE document_access_type AS ENUM ('Yes', 'No', 'NA');
 
 CREATE TYPE drugs_access_type AS ENUM ('Yes', 'No', 'NA');
 
--
+
+
+
 CREATE TABLE
   storage_and_confidentiality (
     id SERIAL PRIMARY KEY,
     control_details TEXT,
     access_details TEXT,
-    drugs drugs_access_type NOT NULL,
-    document document_access_type NOT NULL
+ 
+    sample_access_type sample_access_type NOT NULL,
+       sample_details TEXT,
+    document_access_type document_access_type NOT NULL,
+       drugs_access_type drugs_access_type NOT NULL
+  
+ 
+
   );
 
 SECTION 9 CREATE TYPE support_type AS ENUM ('Yes', 'No');
@@ -322,3 +355,151 @@ CREATE TYPE insurance_type AS ENUM ('Yes', 'No', 'NA');
   enclosure12 INT,
   remarks11 VARCHAR(255)
 );
+
+
+
+
+
+ALTER TABLE funding_budget_and_details
+ADD CONSTRAINT fk_ref
+FOREIGN KEY (id)
+REFERENCES administrative_details(id)
+ON DELETE CASCADE;
+
+
+ ALTER TABLE administrative_requirements  
+ADD CONSTRAINT fk_ref
+FOREIGN KEY (id)
+REFERENCES administrative_details(id)
+ON DELETE CASCADE;
+
+
+DELETE FROM DECLARATION
+WHERE id NOT IN (SELECT id FROM administrative_details);
+
+
+
+
+
+ALTER TABLE funding_budget_and_details
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+  ALTER TABLE overvieww_research
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+ ALTER TABLE participantt_related_information
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+ ALTER TABLE benefits_and_risk   
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+ ALTER TABLE informedd_consent      
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+ ALTER TABLE     payment_compensation
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+
+ ALTER TABLE     storage_and_confidentiality
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+
+ ALTER TABLE     additional_information
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+ ALTER TABLE     declaration
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+ ALTER TABLE     expedited_review
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+ ALTER TABLE     administrative_requirements 
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+ ALTER TABLE     requesting_waiver
+ADD COLUMN administrativee_details_idd INTEGER,
+ADD CONSTRAINT fk_administrativee_details
+  FOREIGN KEY (administrativee_details_idd)
+  REFERENCES administrativee_details(idd);
+
+
+
+  SECTION 13
+CREATE TABLE
+ Expedited_review (
+    id SERIAL PRIMARY KEY,
+      protocol_number INT,
+      version_number INT, 
+      date_1 DATE,
+ 
+      Principal_investigator_name VARCHAR(255),
+      department VARCHAR(255),
+      title VARCHAR(255),
+     summary VARCHAR(255),
+      selected_elements TEXT[] NOT NULL,
+      minimal_risk BOOLEAN NOT NULL DEFAULT FALSE,
+      clinical_documentation  BOOLEAN NOT NULL DEFAULT FALSE,
+      human_tissue BOOLEAN NOT NULL DEFAULT FALSE,
+      other_reason BOOLEAN NOT NULL DEFAULT FALSE,
+      name_of_co_investigator_1 VARCHAR(255),
+      file_name VARCHAR(255),
+      date_2 DATE
+   
+  );
+
+
+SECTION 14
+
+CREATE TABLE 
+requesting_waiver (
+  id SERIAL PRIMARY KEY,
+  principal_investigator_name VARCHAR (255),
+ department VARCHAR (255),
+ title VARCHAR (255),
+ summary VARCHAR (255),
+selected_elements TEXT[] NOT NULL,
+name_of_co_investigator_1 VARCHAR (255),
+file_name VARCHAR (255),
+date DATE
+
+)
