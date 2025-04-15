@@ -48,19 +48,17 @@
 //      department,
 //      title ,
 //      summary ,
-    
+
 //     name_of_co_investigator_1 ,
-  
-//     date 
-    
-    
-      
+
+//     date
+
 //       });
 //       const id = userResponse.data.id;
 //       console.log("User created:", userResponse.data);
 
 //       if (image) {
-      
+
 //         const formData = new FormData();
 //         formData.append("image", image);
 //         formData.append("id", id);
@@ -77,7 +75,6 @@
 
 //         console.log("Image uploaded:", uploadResponse.data);
 //       }
-
 
 //       navigate("/");
 //     } catch (error) {
@@ -253,9 +250,6 @@
 
 // export default Section14;
 
-
-
-
 import "./App.css";
 import { useState } from "react";
 import axios from "axios";
@@ -300,16 +294,19 @@ function Section14(adminId) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const userResponse = await axios.post("http://localhost:5001/requesting_waiver", {
-        selectedElements: selectedElements,
-        principal_investigator_name,
-        department,
-        title,
-        summary,
-        name_of_co_investigator_1,
-        date,
-        administrativeDetailId: adminId,
-      });
+      const userResponse = await axios.post(
+        "http://localhost:5001/requesting_waiver",
+        {
+          selectedElements: selectedElements,
+          principal_investigator_name,
+          department,
+          title,
+          summary,
+          name_of_co_investigator_1,
+          date,
+          administrativeDetailId: adminId,
+        }
+      );
       const id = userResponse.data.id;
       console.log("User created:", userResponse.data);
 
@@ -368,7 +365,9 @@ function Section14(adminId) {
   return (
     <div className="form-container">
       <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-        <h5 className="h2">Application Form for Requesting Waiver of Consent</h5>
+        <h5 className="h2">
+          Application Form for Requesting Waiver of Consent
+        </h5>
 
         <form onSubmit={handlePreview}>
           <h2 className="h">1. Principal Investigator’s name: </h2>
